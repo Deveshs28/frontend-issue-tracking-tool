@@ -1,0 +1,83 @@
+<div class="container">
+  <h2>Enter Details To Create New Issue</h2>
+  <hr />
+  <div class="row" style="text-align: left;">
+    <div class="col-md-12">
+      <form #createIssueForm="ngForm" (ngSubmit)="createIssue()">
+        <div class="form-group">
+          <label class="label-title" for="issueTitle">Issue Title</label>
+          <input
+            type="text"
+            name="issueTitle"
+            [(ngModel)]="issueTitle"
+            class="form-control"
+            placeholder="Enter Issue Title"
+            required
+            id="issueTitle"
+          />
+          <label class="label-title" for="issueDescription"
+            >Issue Description</label
+          >
+          <!-- <textarea
+            type="text"
+            name="issueDescription"
+            [(ngModel)]="issueDescription"
+            class="form-control"
+            placeholder="Enter Issue Description"
+            required
+            id="issueDescription"
+          ></textarea> -->
+          <angular-editor
+            [config]="editorConfig"
+            [placeholder]="'Enter Issue Description'"
+            [(ngModel)]="issueDescription"
+            required
+            id="issueDescription"
+            name="issueDescription"
+          ></angular-editor>
+        </div>
+        <label class="label-title"
+          >Select Issue State And Assign It To User</label
+        >
+        <div class="dropdownStyle">
+          <select
+            class="custom-select"
+            id="issueState"
+            [(ngModel)]="issueState"
+            name="issueState"
+            required
+          >
+            <option value="" disabled selected>Select Issue State</option>
+            <option *ngFor="let issState of issueTypeArr" [value]="issState">{{
+              issState
+            }}</option>
+          </select>
+
+          <select
+            class="custom-select ml-4"
+            [(ngModel)]="selectedUserId"
+            name="selectedUserId"
+          >
+            <option value="" disabled selected>Assign User</option>
+            <option
+              *ngFor="let selectedUser of allUserList"
+              [value]="selectedUser.userId"
+              >{{ selectedUser.firstName }} {{ selectedUser.lastName }}</option
+            >
+          </select>
+        </div>
+
+        <div class="align-Center mt-5">
+          <button
+            type="submit"
+            class="btn button-bckg"
+            [disabled]="!createIssueForm.form.valid"
+          >
+            Create
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<app-loading-bar *ngIf="loading"></app-loading-bar>

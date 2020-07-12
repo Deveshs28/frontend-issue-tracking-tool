@@ -1,0 +1,33 @@
+h2 {
+  font-size: 18px;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+th,
+td {
+  font-size: 16px;
+}
+
+.searchView {
+  width: 70%;
+}
+
+.searchBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  h2 {
+    font-size: 16px;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  th,
+  td {
+    font-size: 14px;
+  }
+}

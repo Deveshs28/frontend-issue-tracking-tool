@@ -1,0 +1,101 @@
+<div class="container">
+  <h2>Edit Issue Details</h2>
+  <hr />
+  <div class="row" style="text-align: left;">
+    <div class="col-md-12">
+      <form #editIssueForm="ngForm" (ngSubmit)="updateDetails()">
+        <div class="form-group">
+          <label class="label-title" for="issueTitle">Issue Title</label>
+          <input
+            type="text"
+            name="issueTitle"
+            [(ngModel)]="issueTitle"
+            class="form-control"
+            placeholder="Enter Issue Title"
+            required
+            id="issueTitle"
+          />
+          <label class="label-title" for="issueDescription"
+            >Issue Description></label
+          >
+          <!-- <textarea
+            type="text"
+            name="issueDescription"
+            [(ngModel)]="issueDescription"
+            class="form-control"
+            placeholder="Enter Issue Description"
+            required
+            id="issueDescription"
+          ></textarea> -->
+          <angular-editor
+            [config]="editorConfig"
+            [placeholder]="'Enter Issue Description'"
+            [(ngModel)]="issueDescription"
+            required
+            id="issueDescription"
+            name="issueDescription"
+          ></angular-editor>
+        </div>
+
+        <label class="label-title mt-2">Current Issue Status</label>
+        <div class="input-group">
+          <input
+            type="text"
+            placeholder="Issue Status"
+            class="form-control"
+            name="issueState"
+            [(ngModel)]="issueState"
+            readonly
+          />
+          <input
+            type="text"
+            placeholder="Assigned To"
+            class="form-control ml-4"
+            name="assignedUser"
+            [(ngModel)]="assignedUser"
+            readonly
+          />
+        </div>
+
+        <label class="label-title mt-3">Update Issue State And Assignee</label>
+        <div class="dropdownStyle">
+          <select
+            class="custom-select"
+            id="issueState"
+            [(ngModel)]="updatedIssueState"
+            name="updatedIssueState"
+          >
+            <option value="" disabled selected>Select Issue State</option>
+            <option *ngFor="let issState of issueTypeArr" [value]="issState">{{
+              issState
+            }}</option>
+          </select>
+
+          <select
+            class="custom-select ml-4"
+            [(ngModel)]="selectedUserId"
+            name="selectedUserId"
+          >
+            <option value="" disabled selected>Select User</option>
+            <option
+              *ngFor="let assignedUser of allUserList"
+              [value]="assignedUser.userId"
+              >{{ assignedUser.firstName }} {{ assignedUser.lastName }}</option
+            >
+          </select>
+        </div>
+
+        <div class="align-Center mt-5 mb-3">
+          <button
+            type="submit"
+            class="btn button-bckg"
+            [disabled]="!editIssueForm.form.valid"
+          >
+            Update
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<app-loading-bar *ngIf="loading"></app-loading-bar>

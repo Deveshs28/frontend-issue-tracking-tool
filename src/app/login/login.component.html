@@ -1,0 +1,56 @@
+<h2>Enter Your Credentials To Login</h2>
+<hr />
+
+<div class="align-Center">
+  <form
+    class="text-center border border-light p-5"
+    #loginForm="ngForm"
+    (ngSubmit)="loginUser()"
+  >
+    <div class="form-group"></div>
+    <input
+      type="email"
+      id="emailId"
+      name="emailId"
+      [(ngModel)]="emailId"
+      class="form-control mb-4 form-input"
+      placeholder="Enter Email Address"
+      [pattern]="emailPattern"
+      required
+      autofocus
+    />
+
+    <input
+      type="password"
+      id="password"
+      name="password"
+      [(ngModel)]="password"
+      class="form-control mb-4"
+      placeholder="Enter Password"
+      required
+    />
+
+    <div class="align-Center mt-5">
+      <button
+        class="btn btn-lg login-btn button-bckg"
+        type="submit"
+        [disabled]="!loginForm.form.valid"
+      >
+        Sign in
+      </button>
+
+      <button
+        class="btn btn-lg button-bckg ml-3 googleButton"
+        (click)="signInWithGoogle()"
+      >
+        Google SignIn
+      </button>
+    </div>
+
+    <p>
+      Not a member? <a href="" [routerLink]="['/registration']">Register</a>
+    </p>
+  </form>
+</div>
+
+<app-loading-bar *ngIf="loading"></app-loading-bar>

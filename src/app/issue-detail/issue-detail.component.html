@@ -1,0 +1,143 @@
+<div class="container">
+  <h2>Issue Details</h2>
+  <hr />
+  <div class="row" style="text-align: left;">
+    <div class="col-md-12">
+      <form>
+        <div class="form-group">
+          <label class="label-title" for="issueTitle">Issue Title</label>
+          <input
+            type="text"
+            name="issueTitle"
+            [(ngModel)]="issueTitle"
+            class="form-control"
+            placeholder="Enter Issue Title"
+            readonly
+            id="issueTitle"
+          />
+          <label class="label-title" for="issueDescription"
+            >Issue Description</label
+          >
+          <!-- <textarea
+            type="text"
+            name="issueDescription"
+            [(ngModel)]="issueDescription"
+            class="form-control"
+            placeholder="Enter Issue Description"
+            readonly
+            id="issueDescription"
+          ></textarea> -->
+
+          <angular-editor
+            [config]="editorConfig"
+            [placeholder]="'Enter Issue Description'"
+            [(ngModel)]="issueDescription"
+            id="issueDescription"
+            name="issueDescription"
+          ></angular-editor>
+        </div>
+
+        <label class="label-title mt-2">Current Issue Status</label>
+        <div class="input-group">
+          <input
+            type="text"
+            placeholder="Issue Status"
+            class="form-control"
+            name="issueState"
+            [(ngModel)]="issueState"
+            readonly
+          />
+          <input
+            type="text"
+            placeholder="Assigned To"
+            class="form-control ml-4"
+            name="issueAssigned"
+            [(ngModel)]="issueAssigned"
+            readonly
+          />
+        </div>
+
+        <div class="align-Center mt-5">
+          <button
+            (click)="removeWatcher()"
+            *ngIf="alreadyWatchingIssue"
+            class="btn button-bckg mr-2 longTextButton"
+          >
+            Stop Watching
+          </button>
+          <button
+            (click)="addWatcher()"
+            *ngIf="!alreadyWatchingIssue"
+            class="btn button-bckg mr-2 longTextButton"
+          >
+            Start Watching
+          </button>
+          <button
+            (click)="deleteIssue()"
+            *ngIf="showDeleteButton"
+            class="btn button-bckg mr-2"
+          >
+            Delete
+          </button>
+          <button (click)="editIssue()" class="btn button-bckg">
+            Update
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <hr class="mt-3" />
+  <h3>Issue Watchers</h3>
+  <div *ngIf="watcherListUsers.length > 0">
+    <div
+      class="list-group"
+      *ngFor="let user of watcherListUsers; let i = index"
+    >
+      <a class="list-group-item list-group-item-action mt-2">
+        <p class="mb-1">
+          {{ user }}
+        </p>
+      </a>
+    </div>
+  </div>
+
+  <hr class="mt-3" />
+  <h3>Comments</h3>
+  <div *ngIf="commentsList.length > 0">
+    <div class="list-group" *ngFor="let cmt of commentsList; let i = index">
+      <a class="list-group-item list-group-item-action mt-2">
+        <p class="mb-1">
+          {{ cmt.comment }}
+        </p>
+        <small>By: {{ cmt.createdByName }}</small>
+      </a>
+    </div>
+  </div>
+
+  <hr class="mt-3" />
+  <h3>Add New Comment</h3>
+  <form #createCommentForm="ngForm" (ngSubmit)="addComment()">
+    <div class="form-group">
+      <textarea
+        type="text"
+        name="comment"
+        [(ngModel)]="comment"
+        class="form-control"
+        placeholder="Enter Your Comment"
+        required
+      ></textarea>
+    </div>
+
+    <div class="align-Center mt-5">
+      <button
+        type="submit"
+        class="btn button-bckg mb-2 longTextButton"
+        [disabled]="!createCommentForm.form.valid"
+      >
+        Add Comment
+      </button>
+    </div>
+  </form>
+</div>
+<app-loading-bar *ngIf="loading"></app-loading-bar>
